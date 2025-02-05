@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+.html {
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+.main {
+  width: 350px;
+  height: 500px;
+  justify-content: center;
+  align-items: center;
+  background: #1d1941;
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
+}
+
+.surface-section {
+  min-height: 100vh;
+}
+
+#background-video {
+  width: 80%;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 40%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  filter: blur(1px);
+}

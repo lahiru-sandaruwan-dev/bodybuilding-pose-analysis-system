@@ -1,0 +1,53 @@
+<router-outlet></router-outlet>
+
+<p-sidebar
+  [(visible)]="sidebarVisible"
+  [style]="{
+    width: isSidebarFullSize ? '100vw' : sidebarProperties.width
+  }"
+  position="{{ sidebarProperties.position }}"
+  (onHide)="sideDrawer()"
+  [dismissible]="false"
+>
+  <ng-template pTemplate="header">
+    <div>
+      <span class="text-2xl font-bold text-900 mb-2">{{ sidebarHeader }}</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <ng-container *ngFor="let component of componentList">
+      <ng-container [ngComponentOutlet]="component"></ng-container>
+    </ng-container>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div *ngIf="footer">
+      <ng-container *ngTemplateOutlet="footer"></ng-container>
+    </div>
+  </ng-template>
+</p-sidebar>
+
+<p-toast></p-toast>
+
+<p-confirmDialog
+  [baseZIndex]="99999"
+  rejectButtonStyleClass="p-button-text"
+  [breakpoints]="{
+    '1000px': '50vw',
+    '800px': '50vw',
+    '700px': '95vw'
+  }"
+  [style]="{ width: '30vw' }"
+>
+  >
+</p-confirmDialog>
+
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.5)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+  [fullScreen]="true"
+  [zIndex]="9999999"
+>
+  <p style="color: white">Loading...</p>
+</ngx-spinner>

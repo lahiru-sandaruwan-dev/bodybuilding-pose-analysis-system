@@ -1,0 +1,80 @@
+<div class="grid formgrid">
+  <div class="field mb-3 col-12 md:col-6">
+    <div
+      class="flex flex-column gap-2 align-items-center justify-content-center"
+    >
+      <div>
+        <webcam
+          [trigger]="triggerObservable"
+          (imageCapture)="handleImage($event)"
+          [switchCamera]="nextWebcamObservable"
+          [imageQuality]="1"
+          (initError)="handleInitError($event)"
+          mirrorImage="never"
+        ></webcam>
+      </div>
+
+      <div class="flex gap-2">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-camera"
+          pTooltip="Take Photo"
+          tooltipPosition="bottom"
+          class="p-button-secondary"
+          (click)="triggerSnapshot()"
+        ></button>
+
+        <!--           (onUpload)="onBasicUploadAuto($event)"  -->
+        <p-fileUpload
+          mode="basic"
+          name="demo[]"
+          url="https://www.primefaces.org/cdn/api/upload.php"
+          accept="image/*"
+          [maxFileSize]="1000000"
+          [auto]="true"
+          chooseIcon="pi pi-upload"
+          chooseLabel="Choose"
+          (onUpload)="onFileSelected($event)"
+        ></p-fileUpload>
+      </div>
+    </div>
+  </div>
+
+  <div class="field mb-3 col-12 md:col-6">
+    <div
+      class="flex flex-column gap-2 align-items-center justify-content-center"
+    >
+      <div
+        class="surface-border border-2 border-round surface-card w-17rem h-12rem flex flex-column justify-content-center align-items-center upload-btn-wrapper text-gray-400"
+        [ngClass]="imageUrl ? 'border-1' : 'border-dashed'"
+      >
+        <i class="pi pi-image text-2xl" *ngIf="!imageUrl"></i>
+        <img [src]="imageUrl" *ngIf="imageUrl" class="w-full h-full" />
+      </div>
+
+      <div class="flex gap-2">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-check"
+          class="p-button-primary"
+          [disabled]="!imageUrl"
+          (click)="saveImage()"
+          pTooltip="Confirm"
+          tooltipPosition="bottom"
+        ></button>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times"
+          class="p-button-danger"
+          [disabled]="!imageUrl"
+          (click)="removeImage()"
+          pTooltip="Remove"
+          tooltipPosition="bottom"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>

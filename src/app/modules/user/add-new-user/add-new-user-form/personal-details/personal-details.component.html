@@ -1,0 +1,198 @@
+<form [formGroup]="FV.formGroup" autocomplete="off">
+  <!-- <div class="card"> -->
+  <div class="grid mt-3 p-4">
+    <div class="col-12">
+      <div class="p-fluid grid formgrid align-items-end">
+        <div class="field col-12 md:col-6">
+          <label for="fullName" class="required">Full Name</label>
+          <input
+            id="fullName"
+            pInputText
+            type="text"
+            class="w-full"
+            formControlName="fullName"
+          />
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="userName" class="required">User Name</label>
+          <input
+            id="userName"
+            pInputText
+            type="text"
+            class="w-full"
+            formControlName="userName"
+          />
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="gender" class="required">Gender</label>
+          <p-dropdown
+            id="gender"
+            styleClass="w-full "
+            class="w-full"
+            [options]="genderArr"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select gender"
+            formControlName="gender"
+            appendTo="body"
+            [autoOptionFocus]="false"
+          ></p-dropdown>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="address" class="required">Address</label>
+          <input
+            id="address"
+            pInputText
+            type="text"
+            class="w-full"
+            formControlName="address"
+          />
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="dateOfBirth" class="required">Date of Birth</label>
+          <input
+            id="dateOfBirth"
+            pInputText
+            type="date"
+            class="w-full"
+            formControlName="dateOfBirth"
+            [min]="minDate"
+            [max]="maxDate"
+            onclick="this.showPicker()"
+            onkeydown="return false"
+          />
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="nic" class="required">NIC</label>
+          <input
+            id="nic"
+            pInputText
+            type="text"
+            class="w-full"
+            formControlName="nicNo"
+          />
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="number1" class="required">Phone Number 01</label>
+          <input
+            id="number1"
+            pInputText
+            type="text"
+            class="w-full"
+            formControlName="number1"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 15)"
+          />
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="number2">Phone Number 02 (optional)</label>
+          <input
+            id="number2"
+            pInputText
+            type="text"
+            class="w-full"
+            formControlName="number2"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 15)"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="email" class="required">E-mail</label>
+          <input
+            id="email"
+            pInputText
+            type="text"
+            class="w-full"
+            formControlName="email"
+          />
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="role" class="required">Role</label>
+          <p-dropdown
+            id="role"
+            styleClass="w-full p-inputtext-sm"
+            class="w-full"
+            [options]="roleArr"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select role"
+            formControlName="role"
+            appendTo="body"
+            [autoOptionFocus]="false"
+            (onChange)="onRoleChange()"
+          ></p-dropdown>
+        </div>
+        <div class="field col-12 md:col-3">
+          <label
+            for="basicSalary"
+            [ngClass]="{
+              required: showAdmin
+            }"
+            >Basic Salary</label
+          >
+
+          <p-inputNumber
+            formControlName="basicSalary"
+            mode="decimal"
+            [minFractionDigits]="2"
+            [maxFractionDigits]="2"
+          />
+        </div>
+        <div class="field col-12 md:col-3" *ngIf="showAdmin">
+          <label
+            for="leaveCount"
+            [ngClass]="{
+              required: showAdmin
+            }"
+            >Leave Count</label
+          >
+          <input
+            id="leaveCount"
+            pInputText
+            type="text"
+            class="w-full p-inputtext-sm"
+            formControlName="leaveCount"
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+          />
+        </div>
+        <div class="field col-12 md:col-6" *ngIf="showDriver">
+          <label
+            for="languages"
+            [ngClass]="{
+              required: showDriver
+            }"
+            >Languages</label
+          >
+
+          <p-multiSelect
+            [options]="languagesArr"
+            formControlName="languages"
+            optionLabel="englishName"
+            optionValue="id"
+          >
+            <ng-template let-value pTemplate="selectedItems">
+              <div
+                class="inline-flex align-items-center gap-2 px-1"
+                *ngFor="let option of value"
+              >
+                <div>
+                  {{ option.flag }} {{ option.englishName }} ({{
+                    option.name
+                  }}),
+                </div>
+              </div>
+              <div *ngIf="!value || value.length === 0">Select Countries</div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <div>
+                  {{ country.flag }} {{ country.englishName }} ({{
+                    country.name
+                  }})
+                </div>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,71 @@
+<form [formGroup]="FV.formGroup" autocomplete="off">
+  <div
+    class="flex justify-content-between align-items-center align-content-center w-full mb-4"
+  >
+    <div class="text-2xl font-semibold">Reports</div>
+
+    <div class="flex justify-content-center align-content-center gap-2">
+      <ng-container *ngFor="let report of reports; let i = index">
+        <p-button
+          (click)="activeIndex = report.index"
+          label="{{ i + 1 }}"
+          styleClass="w-2rem h-2rem p-0"
+          [outlined]="activeIndex !== report.index"
+          pTooltip="{{ report.header }}"
+          tooltipPosition="bottom"
+        />
+      </ng-container>
+    </div>
+  </div>
+
+  <p-accordion
+    (activeIndexChange)="activeIndexChange($event)"
+    [activeIndex]="activeIndex"
+  >
+    <ng-container *ngFor="let report of reports">
+      <p-accordionTab header="{{ report.header }}">
+        <!-- Common Section -->
+        <div class="flex flex-column gap-2">
+          <div class="flex justify-content-between align-items-end">
+            <div class="flex flex-column gap-2">
+              <label for="startDate" class="required"> Month</label>
+              <p-calendar
+                id="startDate"
+                formControlName="month"
+                view="month"
+                dateFormat="yy-MM"
+                [readonlyInput]="true"
+              />
+            </div>
+
+            <p-button
+              label="Generate"
+              icon="pi pi-sparkles"
+              [outlined]="true"
+              (onClick)="onClickGenerateReport(report)"
+            ></p-button>
+          </div>
+
+          <div class="flex flex-column gap-2 mt-2">
+            <span class="p-column-title font-bold">Report Description</span>
+            <span class="text-base"> {{ report.description }} </span>
+          </div>
+
+          <!-- <div class="flex justify-content-end">
+            <p-button label="Generate Report" styleClass="w-10rem"></p-button>
+          </div> -->
+        </div>
+      </p-accordionTab>
+    </ng-container>
+  </p-accordion>
+</form>
+<div class="flex mb-3 gap-2 justify-content-end">
+  <!-- <p-button (click)="activeIndex = 0" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0" />
+  <p-button (click)="activeIndex = 1" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1" />
+  <p-button (click)="activeIndex = 2" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2" /> -->
+  <!-- 
+  <ng-container *ngFor="let report of reports;">
+    <p-button (click)="activeIndex = report.index" label="{{report.header}}"
+      [outlined]="activeIndex !== report.index" />
+  </ng-container> -->
+</div>

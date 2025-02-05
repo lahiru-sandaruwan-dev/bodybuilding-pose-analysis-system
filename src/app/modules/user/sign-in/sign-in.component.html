@@ -1,0 +1,147 @@
+<!-- <div class="flex">
+  <div
+    class="surface-section flex align-items-center justify-content-center w-full md:w-5 min-h-screen"
+  >
+    <div class="mb-2 text-center">
+      <img src="assets/signin-4.png" alt="Image" height="100" class="mb-1" />
+      <div class="text-900 text-3xl font-medium">Welcome Back</div>
+    </div>
+    <form [formGroup]="FV.formGroup" (ngSubmit)="handleSubmit()">
+      <label for="email" class="block text-900 font-medium mb-2"
+        >Username</label
+      >
+      <input
+        id="text"
+        type="text"
+        placeholder="Username"
+        pInputText
+        formControlName="username"
+        class="w-full p-3"
+      />
+      <small class="p-error">{{ FV.getError("username") }}</small>
+
+      <label for="password2" class="block text-900 font-medium mt-3 mb-2"
+        >Password</label
+      >
+      <span class="p-input-icon-right w-full">
+        <i
+          class="pi {{
+            passwordType === 'password' ? 'pi-eye-slash' : 'pi-eye'
+          }}"
+          (click)="
+            passwordType = passwordType === 'password' ? 'text' : 'password'
+          "
+        ></i>
+        <input
+          id="password"
+          type="{{ passwordType }}"
+          placeholder="Password"
+          pInputText
+          formControlName="password"
+          class="w-full p-3"
+        />
+      </span>
+      <small class="p-error">{{ FV.getError("password") }}</small>
+
+      <button
+        pButton
+        pRipple
+        label="Sign In"
+        class="w-full p-3 mt-4"
+        (click)="onLogin()"
+      ></button>
+
+      <div class="flex justify-content-center mt-2">
+        <a class="text-bluegray-900">
+          <small> Version 1.0.0.0 | copyright cybertronix pvt ltd - 2023</small>
+        </a>
+      </div>
+    </form>
+  </div>
+  <div class="hidden md:block w-7 bg-no-repeat bg-cover">
+    <video id="background-video" playsinline autoplay [muted]="true" loop>
+      <source src="../../../../assets/video/login.mp4" type="video/webm" />
+    </video>
+  </div>
+</div> -->
+
+<div class="flex min-h-screen">
+  <!-- Left Section: Form -->
+  <div
+    class="surface-section flex align-items-center justify-content-center w-full md:w-5 min-h-screen"
+  >
+    <div>
+      <div class="mb-2 text-center">
+        <img src="assets/signin-4.png" alt="Image" height="60" class="mb-1" />
+        <div class="text-900 text-3xl font-medium">Welcome Back</div>
+      </div>
+      <form [formGroup]="FV.formGroup" (ngSubmit)="handleSubmit()">
+        <label for="email" class="block text-900 font-medium mb-2"
+          >Username</label
+        >
+        <input
+          id="text"
+          type="text"
+          placeholder="Username"
+          pInputText
+          formControlName="username"
+          class="w-full p-3"
+        />
+        <small class="p-error">{{ FV.getError("username") }}</small>
+
+        <label for="password2" class="block text-900 font-medium mt-3 mb-2"
+          >Password</label
+        >
+        <span class="p-input-icon-right w-full">
+          <i
+            class="pi {{
+              passwordType === 'password' ? 'pi-eye-slash' : 'pi-eye'
+            }}"
+            (click)="
+              passwordType = passwordType === 'password' ? 'text' : 'password'
+            "
+          ></i>
+          <input
+            id="password"
+            type="{{ passwordType }}"
+            placeholder="Password"
+            pInputText
+            formControlName="password"
+            class="w-full p-3"
+          />
+        </span>
+        <small class="p-error">{{ FV.getError("password") }}</small>
+
+        <button
+          pButton
+          pRipple
+          label="Sign In"
+          class="w-full p-3 mt-4"
+          (click)="onLogin()"
+        ></button>
+
+        <div class="flex justify-content-center mt-2">
+          <a class="text-bluegray-900">
+            <small
+              >Version 1.0.0.1 | copyright cybertronix pvt ltd - 2024</small
+            >
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right Section: Video -->
+  <div class="hidden md:block w-7 bg-no-repeat bg-cover">
+    <video
+      id="background-video"
+      class="w-full h-full object-cover"
+      playsinline
+      autoplay
+      [muted]="true"
+      loop
+    >
+      <source src="../../../../assets/video/login.mp4" type="video/webm" />
+    </video>
+  </div>
+</div>

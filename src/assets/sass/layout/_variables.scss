@@ -1,0 +1,51 @@
+$fontFamily: "Source Sans Pro","Helvetica Neue",sans-serif;
+$fontSize:13px;
+$textColor:#777777;
+$textSecondaryColor:lighten($textColor,5%);
+$borderRadius:3px;
+$dividerColor:#eaeaea;
+$iconFontSize:16px;
+$iconWidth:16px;
+$iconHeight:16px;
+$transitionDuration:.3s;
+$mainColor: #61d42d;
+
+$bodyBgColor:#f8f8f8;
+$footerBgColor:#dee0e3;
+$footerLinkHoverColor: #494949;
+$menuBgColor: #2C2C2C;
+$menuBgColorActive: #1f1f1f;
+$menuTextColor: #c4c4c4;
+
+/* Topbar */
+$topbarMenuTextColor:#ffffff;
+$topbarMenuTextHoverColor:#e3e3e3;
+$topbarSubmenuBgColor:#f7f7f7;
+$topbarSubmenuItemHoverBgColor:#e3e3e3;
+$topbarButtonHoverBgColor: #f5f5f5;
+$topbarButtonHoverColor:#494949;
+$topbarIconColor:#afafaf;
+$topbarBgColor: #ffffff;
+
+/* Tab */
+$progressBarBgColor: #eeeeee;
+$progressBarFirstColor: #92f5a1;
+$progressBarSecondColor: #c4e3c9;
+$progressBarThirdColor: #c8cfc9;
+$progressBarForthColor: #dedede;
+
+/* Contents */
+$contentBorderColor:#eaeaea;
+
+/* List Items */
+$listItemPadding:.5em 1em;
+
+/* Predefined Colors */
+$yellow:#fbc948;
+$blue:#6ec5ff;
+$orange:#F1B009;
+$purple:#985edb;
+$pink:#f18983;
+$green:#59c429;
+$black:#777777;
+$secondary:#f4f4f4;

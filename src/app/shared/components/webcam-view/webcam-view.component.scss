@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  .webcam-container .webcam-wrapper,
+  .webcam-wrapper video {
+    width: 100% !important;
+    height: 12rem !important;
+    border-radius: 5px !important;
+    border: 2px solid #ebebeb !important;
+  }
+}

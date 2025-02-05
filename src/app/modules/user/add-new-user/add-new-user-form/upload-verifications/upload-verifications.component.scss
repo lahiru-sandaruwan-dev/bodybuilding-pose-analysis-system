@@ -1,0 +1,11 @@
+:host ::ng-deep .p-image-preview-container > img {
+  object-fit: cover;
+  height: 9rem;
+  cursor: pointer;
+  width: 9rem;
+  border-radius: 5px;
+}
+
+:host ::ng-deep .p-image-preview-indicator {
+  border-radius: 5px;
+}

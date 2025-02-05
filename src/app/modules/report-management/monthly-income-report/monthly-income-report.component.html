@@ -1,0 +1,76 @@
+<div id="demo">
+  <div class="flex justify-content-between">
+    <div>
+      <div>SLPD Pvt Ltd</div>
+      <div>Colombo 10</div>
+      <div>+94 77 566 1026/ +94 11 285 4620</div>
+    </div>
+    <div class="flex justify-content-center align-items-center flex-column">
+      <span class="font-bold text-xl">Monthly Income Report</span>
+      <span>Month : {{month | date: 'yyyy-MM'}}</span>
+    </div>
+    <div>
+      <img src="assets/signin-4.png" alt="Image" height="40" class="mr-0 lg:mr-6" />
+    </div>
+  </div>
+  <hr />
+
+  <p-table [value]="reportDetails" [columns]="cols" styleClass="p-datatable-gridlines p-datatable-sm">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [ngClass]="{ 
+                  'text-right': col.field == 'totalCost' || col.field == 'totalCostLocalCurrency' || col.field == 'estimatedExpense'  || col.field == 'totalExpense' || col.field == 'remainingExpenses' || col.field == 'totalDriverSalary' || col.field == 'tripIncome'
+                  , 'text-center' : col.field == 'showRemainingToDriver'
+               }">
+
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns" [ngClass]="{
+                  'text-right': col.field == 'totalCost' || col.field == 'totalCostLocalCurrency' || col.field == 'estimatedExpense'  || col.field == 'totalExpense' || col.field == 'remainingExpenses' || col.field == 'totalDriverSalary' || col.field == 'tripIncome'
+                  , 'text-center' : col.field == 'showRemainingToDriver'
+                }">
+          <!-- col.field == 'amount' -->
+          <ng-container
+            *ngIf="['totalCost', 'totalCostLocalCurrency', 'estimatedExpense', 'totalExpense', 'remainingExpenses', 'totalDriverSalary', 'tripIncome'].includes(col.field)">
+            {{ rowData[col.field] | currency: "" : "" }}
+          </ng-container>
+
+          <ng-container
+            *ngIf="col.field != 'totalCost' && col.field != 'totalCostLocalCurrency' && col.field != 'estimatedExpense' && col.field != 'totalExpense' && col.field != 'totalDriverSalary' && col.field != 'remainingExpenses' && col.field != 'tripIncome'">
+            {{ rowData[col.field] }}
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+
+
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="10" style="text-align: left;">
+          Total Income
+        </td>
+        <td class="text-right">
+          {{ totalIncome | currency: "" : "" }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+<ng-template #templateRef>
+  <div class="flex justify-content-end align-items-center gap-2">
+    <button id="print" class="p-button-sm p-button p-component p-ripple" printSectionId="demo" [useExistingCss]="true"
+      ngxPrint>
+      <i class="pi pi-file-pdf mr-2" style="font-size: 1rem"></i> Export PDF
+    </button>
+    <!-- XLS -->
+    <button id="print" class="p-button-sm p-button p-component p-ripple p-button-success" (click)="exportXls()">
+      <i class="pi pi-file-excel mr-2" style="font-size: 1rem"></i> Export XLS
+    </button>
+  </div>
+</ng-template>

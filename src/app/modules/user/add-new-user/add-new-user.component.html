@@ -1,0 +1,150 @@
+<!-- <div class="card"> -->
+<div class="flex justify-content-between align-items-center mb-4">
+  <div class="text-2xl font-semibold">User Management</div>
+  <p-button
+    styleClass=" mr-2"
+    icon="pi pi-plus"
+    label="Add New User"
+    (onClick)="onClickAddNew()"
+  ></p-button>
+</div>
+<p-table
+  #dt
+  styleClass=""
+  [columns]="cols"
+  [value]="recodes"
+  responsiveLayout="stack"
+  [breakpoint]="'960px'"
+  dataKey="_id"
+  [rows]="10"
+  [responsive]="true"
+  styleClass="p-datatable-gridlines"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [loading]="loading"
+  [paginator]="true"
+  [rowHover]="true"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [globalFilterFields]="['fullName', 'userName']"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between">
+      <button
+        type="button"
+        pButton
+        pRipple
+        icon="pi pi-file-excel"
+        class="p-button-success"
+        pTooltip="Export to XLS"
+        tooltipPosition="right"
+        (click)="exportToExcel()"
+      ></button>
+
+      <p-iconField iconPosition="left" class="ml-auto">
+        <p-inputIcon>
+          <i class="pi pi-search"></i>
+        </p-inputIcon>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Search User"
+        />
+      </p-iconField>
+
+      <!-- </div> -->
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{ col.header }}
+      </th>
+      <th class="text-center">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-rowData
+    let-columns="columns"
+    let-rowIndex="rowIndex"
+  >
+    <tr>
+      <td
+        *ngFor="let col of columns"
+        [ngClass]="{
+          'bg-blue': rowIndex % 2 !== 0,
+          'line-through	': rowData.isBlackListed
+        }"
+      >
+        <ng-container *ngIf="col.field == 'fullName'">
+          <span class="p-column-title font-bold">Full Name</span
+          >{{ rowData[col.field] }}
+        </ng-container>
+        <ng-container *ngIf="col.field == 'userName'">
+          <span class="p-column-title font-bold">User Name</span
+          >{{ rowData[col.field] }}
+        </ng-container>
+        <ng-container *ngIf="col.field == 'address'">
+          <span class="p-column-title font-bold">Address</span
+          >{{ rowData[col.field] }}
+        </ng-container>
+        <ng-container *ngIf="col.field == 'nic'">
+          <span class="p-column-title font-bold">NIC</span
+          >{{ rowData[col.field] }}
+        </ng-container>
+        <ng-container *ngIf="col.field == 'email'">
+          <span class="p-column-title font-bold">E-mail</span
+          >{{ rowData[col.field] }}
+        </ng-container>
+        <ng-container *ngIf="col.field == 'phoneNumber1'">
+          <span class="p-column-title font-bold">Phone Number 1</span
+          >{{ rowData[col.field] }}
+        </ng-container>
+        <ng-container *ngIf="col.field == 'phoneNumber2'">
+          <span class="p-column-title font-bold">Phone Number 2</span
+          >{{ rowData[col.field] }}
+        </ng-container>
+        <ng-container *ngIf="col.field == 'roleName'">
+          <span class="p-column-title font-bold">Role Name</span
+          >{{ rowData[col.field] }}
+        </ng-container>
+      </td>
+      <td
+        class="text-center"
+        [ngClass]="{
+        'bg-blue': rowIndex % 2 !== 0,
+      }"
+      >
+        <!-- <span class="p-column-title font-bold">Action</span> -->
+        <button
+          #btn
+          type="button"
+          pButton
+          icon="pi pi-ellipsis-v"
+          (click)="toggleMenu(menu, $event, rowData)"
+        ></button>
+        <p-tieredMenu
+          #menu
+          [model]="filteredItems"
+          [popup]="true"
+          appendTo="body"
+        ></p-tieredMenu>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="columns.length + 2">
+        <div
+          class="flex flex-column justify-content-center align-items-center gap-2"
+          style="height: 300px; width: 100%"
+        >
+          <i class="pi pi-inbox text-5xl text-gray-400"></i>
+          <small class="">No Users Found</small>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<!-- </div> -->

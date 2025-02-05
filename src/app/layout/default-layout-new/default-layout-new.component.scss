@@ -1,0 +1,41 @@
+.card {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: calc(100vh - 100px);
+  border-radius: 8px;
+  //   width: calc(100hw - 500px);
+}
+
+.demo {
+  color: #3b82f6 !important;
+}
+
+.bg-demo {
+  border-left: 2px solid #3b82f6 !important;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: green; /* Dot color */
+  animation: blink-animation 1s infinite; /* Adjust the speed of the blink */
+}
+
+@keyframes blink-animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #app-sidebar-12 {
+    height: calc(100vh - 20px) !important; /* Full height for small screens */
+  }
+}

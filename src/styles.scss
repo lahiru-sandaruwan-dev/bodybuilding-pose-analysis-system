@@ -1,0 +1,150 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules/prismjs/themes/prism-coy.css";
+// @import "assets/demo/flags/flags.css";
+// @import "assets/demo/documentation.scss";
+// import Quill styles in styles.scss
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
+img {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.logo {
+  vertical-align: middle;
+  height: 45px;
+}
+.p-menuitem {
+  background: rgba(0, 0, 0, 0) !important;
+  border-radius: 5px !important;
+}
+.p-megamenu {
+  padding: 0rem !important;
+  background: rgba(0, 0, 0, 0) !important;
+  border: none !important;
+}
+
+.pi-angle-down:before {
+  content: "" !important;
+}
+.p-menuitem-icon {
+  font-size: large !important;
+  // color: #4f5692!important;
+}
+.p-megamenu-panel {
+  left: 0 !important;
+  right: auto !important;
+  transform: translateX(-100%) !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  padding: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #bbbbbb;
+  border-radius: 10px;
+}
+
+.status-container {
+  padding: 5px;
+  border-radius: 5px;
+  max-width: 100px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.status-success {
+  background-color: rgba(104, 159, 56, 0.8);
+  color: white;
+}
+
+.status-danger {
+  background-color: rgba(247, 68, 68, 0.8);
+  color: white;
+}
+
+.color-container {
+  width: 60px;
+  height: 20px;
+  border-radius: 2px;
+  border: 1px solid #000000;
+}
+
+.required:after {
+  content: " *";
+  color: red;
+}
+
+:host ::ng-deep .p-toast-message {
+  /* Example styles */
+  background-color: #fff !important;
+  // color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.ButtonFooterCustom {
+  bottom: 20px;
+  right: 0;
+  padding: 10px;
+  position: fixed;
+}
+
+.p-inputgroup > p-dropdown {
+  display: grid;
+  flex: 1 1 auto;
+  width: 1%;
+
+  .p-dropdown {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.p-inputgroup p-dropdown:not(:last-child) .p-dropdown {
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.p-inputgroup p-dropdown:not(:first-child) .p-dropdown {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.p-inputgroup > p-inputnumber input.p-inputnumber-input {
+  border-radius: 0;
+  margin: 0;
+}
+
+.p-inputgroup p-inputnumber:last-child input.p-inputnumber-input {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.p-inputgroup p-inputnumber:first-child input.p-inputnumber-input {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}

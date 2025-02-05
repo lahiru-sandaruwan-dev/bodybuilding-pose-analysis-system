@@ -1,0 +1,4 @@
+{
+  "baseURL": "http://localhost:5902/api",
+  "reportURL": "http://localhost:5902/ReportServer"
+}
