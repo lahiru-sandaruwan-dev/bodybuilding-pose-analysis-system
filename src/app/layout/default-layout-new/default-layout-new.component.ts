@@ -48,18 +48,18 @@ export class DefaultLayoutNewComponent {
         routerLink: "/dashboard",
         isVisible: true
       },
+      // {
+      //   menuId: 2,
+      //   label: "User",
+      //   icon: "pi pi-user",
+      //   routerLink: "/user",
+      //   isVisible: true
+      // },
       {
         menuId: 2,
-        label: "User",
-        icon: "pi pi-user",
-        routerLink: "/user",
-        isVisible: true
-      },
-      {
-        menuId: 3,
         label: "Pose Detection",
         icon: "pi pi-user",
-        routerLink: "/user",
+        routerLink: "/pose-detection",
         isVisible: true
       },
       // {

@@ -28,6 +28,12 @@ const routes: Routes = [
       import("./modules/user/user.module").then((m) => m.UserModule),
     canActivate: [RouteGuardService],
   },
+  {
+    path: "pose-detection",
+    loadChildren: () =>
+      import("./modules/pose-detection-form/pose-detection-form.module").then((m) => m.PoseDetectionFormModule),
+    canActivate: [RouteGuardService],
+  },
   // {
   //   path: "leave-management",
   //   loadChildren: () =>
