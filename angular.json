@@ -28,7 +28,11 @@
               "src/assets",
               "src/favicon.ico",
               "src/upload.php",
-              { "glob": "app.config.js", "input": "src/", "output": "./" }
+              {
+                "glob": "app.config.js",
+                "input": "src/",
+                "output": "./"
+              }
             ],
             "styles": [
               "src/styles.scss",
@@ -40,7 +44,9 @@
               "node_modules/prismjs/prism.js",
               "node_modules/prismjs/components/prism-typescript.js"
             ],
-            "allowedCommonJsDependencies": ["quill"]
+            "allowedCommonJsDependencies": [
+              "quill"
+            ]
           },
           "configurations": {
             "production": {
@@ -111,16 +117,27 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
-            "assets": ["src/assets", "src/favicon.ico", "src/upload.php"]
+            "assets": [
+              "src/assets",
+              "src/favicon.ico",
+              "src/upload.php"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
