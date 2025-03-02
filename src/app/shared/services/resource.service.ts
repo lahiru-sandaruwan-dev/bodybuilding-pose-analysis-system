@@ -21,8 +21,10 @@ export class ResourceService {
   private Expenses = this.host + "/expense";
   private Report = this.host + "/report";
 
+  private AnalyzePose = this.host + "/analyze_pose"
+
   auth = {
-    login: this.Auth + "/login",
+    login: this.host + "/login",
     resetPassword: this.Auth + "/resetPassword",
     changePassword: this.Auth + "/changePassword",
     refreshAuth: this.Auth + "/refreshAuth",
@@ -118,5 +120,9 @@ export class ResourceService {
     monthlyExpensesReport: this.Report + '/monthlyExpensesReport',
     monthlyDriverSalary: this.Report + '/monthlyDriverSalary',
     monthlyIncomeReport: this.Report + '/monthlyIncomeReport',
+  }
+
+  posesAnalysis = {
+    frontDoubleBicepsAnalysis: this.AnalyzePose + '/front_double_biceps'
   }
 }

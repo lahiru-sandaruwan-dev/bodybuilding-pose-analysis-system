@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
 import * as poseDetection from '@tensorflow-models/pose-detection';
+import { AppMessageService } from 'src/app/shared/services/app-message.service';
+import { PoseAnalysisService } from 'src/app/shared/services/api-services/pose-analysis.service';
 
 @Component({
   selector: 'app-front-double-bicepe-form',
@@ -8,51 +10,14 @@ import * as poseDetection from '@tensorflow-models/pose-detection';
   styleUrls: ['./front-double-bicepe-form.component.scss']
 })
 export class FrontDoubleBicepeFormComponent {
-
-  //working Code
-  // @ViewChild('video') video!: ElementRef<HTMLVideoElement>;
-  // detector!: poseDetection.PoseDetector;
-
-  // async ngOnInit(): Promise<void> {
-  //   await this.initializeTensorFlow(); // Initialize TensorFlow backend
-  //   await this.loadModel();
-  //   this.startVideoStream();
-  // }
-
-  // async initializeTensorFlow() {
-  //   await tf.setBackend('cpu'); // Use 'wasm' or 'cpu' instead of 'webgpu'
-  //   await tf.ready();
-  //   console.log('TensorFlow.js is ready!');
-  // }
-
-  // async loadModel() {
-  //   this.detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
-  //   console.log('Pose model loaded!');
-  // }
-
-  // startVideoStream(): void {
-  //   navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-  //     this.video.nativeElement.srcObject = stream;
-  //     this.detectPose();
-  //   });
-  // }
-
-  // async detectPose() {
-  //   setInterval(async () => {
-  //     if (!this.detector) return;
-
-  //     const poses = await this.detector.estimatePoses(this.video.nativeElement);
-  //     if (poses.length > 0) {
-  //       console.log('Keypoints:', poses[0].keypoints); // Log keypoints in console
-  //     }
-  //   }, 100); // Run every 100ms
-  // }
-
-  // testing code
-
   @ViewChild('video') video!: ElementRef<HTMLVideoElement>;
   detector!: poseDetection.PoseDetector;
   angles: any
+
+  constructor(
+    private msgService: AppMessageService,
+    private poseAnalysisService: PoseAnalysisService
+  ) { }
 
   async ngOnInit(): Promise<void> {
     await this.initializeTensorFlow(); // Initialize TensorFlow backend
@@ -145,6 +110,27 @@ export class FrontDoubleBicepeFormComponent {
     return angle; // Return the calculated angle in degrees
   }
 
+  analyzePose(angles: any) {
+    try {
+      let obj = {
+        "angles": [150, 160, 85, 85] //correct pose angels
+      }
 
+      debugger
+      this.poseAnalysisService.frontDoubleBicepsAnalysis(obj).subscribe((response: any) => {
+        debugger
+        if (response.IsSuccessful) {
+          this.msgService.showSuccessAlert(response.Message);
+          let Result = response.Result;
+          console.log('Front Double Biceps Analysis Data', Result);
+        } else {
+          this.msgService.showErrorAlert(response.Message);
+        }
+      })
+
+    } catch (error: any) {
+      this.msgService.showErrorAlert(error.message);
+    }
+  }
 
 }

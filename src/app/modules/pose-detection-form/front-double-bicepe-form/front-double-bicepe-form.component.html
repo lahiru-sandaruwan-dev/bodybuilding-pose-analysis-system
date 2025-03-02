@@ -9,17 +9,12 @@
     <div class="card">
       <label for="angles" class="text-xl">{{ angles }}</label>
     </div>
+
+    <p-button
+      pButton
+      type="button"
+      (click)="analyzePose('data')"
+      label="Submit"
+    ></p-button>
   </div>
 </div>
-
-<!-- <label class="text-xl" for="frontDoubleBicep">Front Double Biceps</label>
-<div class="p-fluid grid formgrid mt-5">
-  <div class="field col-12 md:col-6">
-    <div class="card" style="height: 400px">
-      <video #video style="width: 100%; height: 100%" autoplay></video>
-    </div>
-  </div>
-  <div class="field col-12 md:col-6">
-    <div class="card"></div>
-  </div>
-</div> -->

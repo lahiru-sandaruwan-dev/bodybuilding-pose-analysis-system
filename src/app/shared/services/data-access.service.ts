@@ -14,7 +14,7 @@ export class DataAccessService {
   constructor(
     private http: HttpClient,
     private masterData: MasterDataService
-  ) {}
+  ) { }
 
   GET(url: string, spinner = true): Observable<AppResponse> {
     let responseModel = new AppResponse();
@@ -231,8 +231,7 @@ export class DataAccessService {
   private mapToAppResponse(response: any) {
     let result = new AppResponse();
     result.IsSuccessful = response.isSuccessful;
-    result.TimeStamp = response.timeStamp;
-    result.StatusCode = response.statusCode;
+    result.StatusCode = response.status;
     result.Message = response.message ? response.message : "";
     result.Result = response.data;
     return result;
@@ -241,7 +240,6 @@ export class DataAccessService {
 
 export class AppResponse {
   IsSuccessful = false;
-  TimeStamp: any;
   Message: any;
   StatusCode: any;
   Result: any;
