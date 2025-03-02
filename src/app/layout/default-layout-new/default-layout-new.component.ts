@@ -7,7 +7,6 @@ import { AppModule } from "src/app/shared/enums/app-module.enum";
 import { AppMessageService } from "src/app/shared/services/app-message.service";
 import { DatePipe } from "@angular/common";
 import { PopupService } from "src/app/shared/services/popup.service";
-import { ChangePasswordComponent } from "src/app/modules/user/change-password/change-password.component";
 
 @Component({
   selector: "app-default-layout-new",
@@ -196,12 +195,12 @@ export class DefaultLayoutNewComponent {
   }
 
   onClickSettings() {
-    this.popupService
-      .OpenModel(ChangePasswordComponent, {
-        header: "CHANGE PASSWORD",
-        width: "30vw",
-      })
-      .subscribe((res) => { });
+    // this.popupService
+    //   .OpenModel(ChangePasswordComponent, {
+    //     header: "CHANGE PASSWORD",
+    //     width: "30vw",
+    //   })
+    //   .subscribe((res) => { });
   }
 
   // openMonthAudit() {

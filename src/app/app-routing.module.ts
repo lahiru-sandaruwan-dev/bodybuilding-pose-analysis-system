@@ -33,85 +33,8 @@ const routes: Routes = [
     loadChildren: () =>
       import("./modules/pose-detection-form/pose-detection-form.module").then((m) => m.PoseDetectionFormModule),
     canActivate: [RouteGuardService],
-  },
-  // {
-  //   path: "leave-management",
-  //   loadChildren: () =>
-  //     import("./modules/leave-management/leave-management.module").then(
-  //       (m) => m.LeaveManagementModule
-  //     ),
-  //   canActivate: [RouteGuardService],
-  // },
-  // {
-  //   path: "vehicle-management",
-  //   component: DefaultLayoutNewComponent,
-  //   children: [
-  //     {
-  //       path: "",
-  //       component: VehicleManagementComponent,
-  //     },
-  //   ],
-  //   canActivate: [RouteGuardService],
-  // },
-  // {
-  //   path: "trip-management",
-  //   loadChildren: () =>
-  //     import("./modules/trip-management/trip-management.module").then(
-  //       (m) => m.TripManagementModule
-  //     ),
-  //   canActivate: [RouteGuardService],
-  // },
-  // {
-  //   path: "trip-management",
-  //   component: DefaultLayoutNewComponent,
-  //   children: [
-  //     {
-  //       path: "",
-  //       component: TripManagementComponent,
-  //     },
-  //   ],
-  //   canActivate: [RouteGuardService],
-  // },
-  // {
-  //   path: "trip-management-by-driver",
-  //   component: DefaultLayoutNewComponent,
-  //   children: [
-  //     {
-  //       path: "",
-  //       component: TripManagementByDriverComponent,
-  //     },
-  //   ],
-  //   canActivate: [RouteGuardService],
-  // },
-  // {
-  //   path: "vehicle-management",
-  //   component: VehicleManagementComponent,
-  //   canActivate: [RouteGuardService],
-  // },
-  // {
-  //   path: "month-audit",
-  //   loadChildren: () =>
-  //     import("./modules/month-audit/month-audit.module").then(
-  //       (m) => m.MonthAuditModule
-  //     ),
-  //   canActivate: [RouteGuardService],
-  // },
-  // {
-  //   path: "vehicle-tracking",
-  //   loadChildren: () =>
-  //     import("./modules/vehicle-tracking/vehicle-tracking.module").then(
-  //       (m) => m.VehicleTrackingModule
-  //     ),
-  //   canActivate: [RouteGuardService],
-  // },
-  {
-    path: "reports",
-    loadChildren: () =>
-      import("./modules/report-management/report-management.module").then(
-        (m) => m.ReportManagementModule
-      ),
-    canActivate: [RouteGuardService],
   }
+
 ];
 
 @NgModule({

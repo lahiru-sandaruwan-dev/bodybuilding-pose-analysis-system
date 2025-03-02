@@ -3,7 +3,6 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { UserRoutingModule } from "./user-routing.module";
-import { ChangePasswordComponent } from "./change-password/change-password.component";
 import { SignInComponent } from "./sign-in/sign-in.component";
 
 import { InputTextModule } from "primeng/inputtext";
@@ -35,23 +34,12 @@ import { IconFieldModule } from "primeng/iconfield";
 import { InputIconModule } from "primeng/inputicon";
 import { ImageModule } from "primeng/image";
 
-import { AddNewUserComponent } from "./add-new-user/add-new-user.component";
-import { AddNewUserFormComponent } from "./add-new-user/add-new-user-form/add-new-user-form.component";
 import { StepsModule } from "primeng/steps";
 import { ToastModule } from "primeng/toast";
-import { PersonalDetailsComponent } from "./add-new-user/add-new-user-form/personal-details/personal-details.component";
-import { BankDetailsComponent } from "./add-new-user/add-new-user-form/bank-details/bank-details.component";
-import { UploadVerificationsComponent } from "./add-new-user/add-new-user-form/upload-verifications/upload-verifications.component";
 
 @NgModule({
   declarations: [
-    ChangePasswordComponent,
     SignInComponent,
-    AddNewUserComponent,
-    AddNewUserFormComponent,
-    PersonalDetailsComponent,
-    BankDetailsComponent,
-    UploadVerificationsComponent,
   ],
   imports: [
     ButtonModule,
@@ -90,4 +78,4 @@ import { UploadVerificationsComponent } from "./add-new-user/add-new-user-form/u
     ImageModule,
   ],
 })
-export class UserModule {}
+export class UserModule { }
