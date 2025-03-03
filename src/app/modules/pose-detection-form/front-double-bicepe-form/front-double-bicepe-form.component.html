@@ -2,19 +2,38 @@
 <div class="p-fluid grid formgrid mt-5">
   <div class="field col-12 md:col-6">
     <div class="card" style="position: relative; height: 400px">
+      <div style="float: right">
+        <button
+          pButton
+          type="button"
+          pRipple
+          (click)="toggleCamera()"
+          [label]="isCameraOn ? 'Close Camera' : 'Open Camera'"
+          [class]="
+            isCameraOn
+              ? 'p-button-danger p-button-raised'
+              : 'p-button-primary p-button-raised'
+          "
+        ></button>
+      </div>
       <video #video style="width: 100%; height: 100%" autoplay></video>
     </div>
   </div>
   <div class="field col-12 md:col-6">
     <div class="card">
       <label for="angles" class="text-xl">{{ angles }}</label>
+      <label for="angles" class="text-5xl text-green-500">{{
+        pose_status
+      }}</label>
     </div>
-
-    <p-button
-      pButton
-      type="button"
-      (click)="analyzePose('data')"
-      label="Submit"
-    ></p-button>
+    <div style="float: right">
+      <button
+        pButton
+        pRipple
+        type="button"
+        (click)="analyzePose('data')"
+        label="Submit"
+      ></button>
+    </div>
   </div>
 </div>
