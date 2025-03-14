@@ -14,7 +14,7 @@ export class DataAccessService {
   constructor(
     private http: HttpClient,
     private masterData: MasterDataService
-  ) { }
+  ) {}
 
   GET(url: string, spinner = true): Observable<AppResponse> {
     let responseModel = new AppResponse();
@@ -65,6 +65,35 @@ export class DataAccessService {
         if (spinner) {
           this.Request.next(--this.RequestCount);
         }
+
+        responseModel = this.mapToAppResponse(error.error);
+        return of(responseModel);
+      })
+    );
+  }
+
+  pose_POST(url: string, body: any, spinner = true): Observable<AppResponse> {
+    let responseModel = new AppResponse();
+    // if (spinner) {
+    //   this.Request.next(++this.RequestCount);
+    // }
+
+    let headers = new HttpHeaders().set(
+      "Authorization",
+      this.masterData.SessionKey
+    );
+
+    return this.http.post<AppResponse>(url, body, { headers }).pipe(
+      map((response) => {
+        // if (spinner) {
+        //   this.Request.next(--this.RequestCount);
+        // }
+        return this.mapToAppResponse(response);
+      }),
+      catchError((error) => {
+        // if (spinner) {
+        //   this.Request.next(--this.RequestCount);
+        // }
 
         responseModel = this.mapToAppResponse(error.error);
         return of(responseModel);

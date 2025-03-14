@@ -13,7 +13,7 @@ export class PoseAnalysisService {
   ) { }
 
   frontDoubleBicepsAnalysis(body: any) {
-    return this.dataAccess.POST(this.resource.posesAnalysis.frontDoubleBicepsAnalysis, body)
+    return this.dataAccess.pose_POST(this.resource.posesAnalysis.frontDoubleBicepsAnalysis, body)
       .pipe((response) => { return response; });
   }
 }

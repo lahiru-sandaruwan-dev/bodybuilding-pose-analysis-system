@@ -147,7 +147,8 @@ export class FrontDoubleBicepeFormComponent {
 
   constructor(
     private msgService: AppMessageService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private poseAnalysisService: PoseAnalysisService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -156,42 +157,42 @@ export class FrontDoubleBicepeFormComponent {
     // this.startVideoStream();
 
     // Listen for pose analysis results
-    this.socketService.onPoseAnalysisResult().subscribe((response: any) => {
-      if (response.IsSuccessful) {
-        this.msgService.showSuccessAlert(response.Message);
-        let result = response.Result;
-        this.pose_status = result.pose_status;
-        console.log('Front Double Biceps Analysis Data', result);
-      } else {
-        this.msgService.showErrorAlert(response.Message);
-      }
-    });
+    // this.socketService.onPoseAnalysisResult().subscribe((response: any) => {
+    //   if (response.IsSuccessful) {
+    //     this.msgService.showSuccessAlert(response.Message);
+    //     let result = response.Result;
+    //     this.pose_status = result.pose_status;
+    //     console.log('Front Double Biceps Analysis Data', result);
+    //   } else {
+    //     this.msgService.showErrorAlert(response.Message);
+    //   }
+    // });
 
-    // Handle errors from WebSocket
-    this.socketService.onError().subscribe((error: any) => {
-      console.error('WebSocket Error:', error);
-      this.msgService.showErrorAlert('WebSocket Error: ' + error);
-    });
+    // // Handle errors from WebSocket
+    // this.socketService.onError().subscribe((error: any) => {
+    //   console.error('WebSocket Error:', error);
+    //   this.msgService.showErrorAlert('WebSocket Error: ' + error);
+    // });
   }
 
-  ngAfterViewChanged() {
-    this.socketService.onPoseAnalysisResult().subscribe((response: any) => {
-      if (response.IsSuccessful) {
-        this.msgService.showSuccessAlert(response.Message);
-        let result = response.Result;
-        this.pose_status = result.pose_status;
-        console.log('Front Double Biceps Analysis Data', result);
-      } else {
-        this.msgService.showErrorAlert(response.Message);
-      }
-    });
+  // ngAfterViewChanged() {
+  //   this.socketService.onPoseAnalysisResult().subscribe((response: any) => {
+  //     if (response.IsSuccessful) {
+  //       this.msgService.showSuccessAlert(response.Message);
+  //       let result = response.Result;
+  //       this.pose_status = result.pose_status;
+  //       console.log('Front Double Biceps Analysis Data', result);
+  //     } else {
+  //       this.msgService.showErrorAlert(response.Message);
+  //     }
+  //   });
 
-    // Handle errors from WebSocket
-    this.socketService.onError().subscribe((error: any) => {
-      console.error('WebSocket Error:', error);
-      this.msgService.showErrorAlert('WebSocket Error: ' + error);
-    });
-  }
+  //   // Handle errors from WebSocket
+  //   this.socketService.onError().subscribe((error: any) => {
+  //     console.error('WebSocket Error:', error);
+  //     this.msgService.showErrorAlert('WebSocket Error: ' + error);
+  //   });
+  // }
 
   async initializeTensorFlow() {
     await tf.setBackend('cpu');
@@ -383,40 +384,43 @@ export class FrontDoubleBicepeFormComponent {
     return angle;
   }
 
+  // analyzePose(angles: any) {
+  //   try {
+  //     if (this.socketService.isConnected) {
+  //       const obj = { angles };
+  //       this.socketService.sendPoseData(obj); // Send pose data
+
+  //       this.callSocket(); // Handle response
+  //     } else {
+  //       console.error('WebSocket is not connected');
+  //       this.msgService.showErrorAlert('WebSocket is not connected');
+  //     }
+  //   } catch (error: any) {
+  //     this.msgService.showErrorAlert(error.message);
+  //   }
+  // }
+
   analyzePose(angles: any) {
     try {
-      if (this.socketService.isConnected) {
-        const obj = { angles };
-        this.socketService.sendPoseData(obj); // Send pose data
-
-        this.callSocket(); // Handle response
-      } else {
-        console.error('WebSocket is not connected');
-        this.msgService.showErrorAlert('WebSocket is not connected');
+      let obj = {
+        // "angles": [150, 160, 85, 85] //correct pose angels
+        "angles": angles //correct pose angels
       }
+
+      this.poseAnalysisService.frontDoubleBicepsAnalysis(obj).subscribe((response: any) => {
+        if (response.IsSuccessful) {
+          // this.msgService.showSuccessAlert(response.Message);
+          let Result = response.Result;
+          this.pose_status = Result.pose_status
+          console.log('Front Double Biceps Analysis Data', Result);
+        } else {
+          this.msgService.showErrorAlert(response.Message);
+        }
+      })
+
     } catch (error: any) {
       this.msgService.showErrorAlert(error.message);
     }
-  }
-
-  callSocket() {
-    debugger
-    this.socketService.onPoseAnalysisResult().subscribe((response: any) => {
-      if (response.IsSuccessful) {
-        this.msgService.showSuccessAlert(response.Message);
-        let result = response.Result;
-        this.pose_status = result.pose_status;
-        console.log('Front Double Biceps Analysis Data', result);
-      } else {
-        this.msgService.showErrorAlert(response.Message);
-      }
-    });
-
-    // Handle errors from WebSocket
-    this.socketService.onError().subscribe((error: any) => {
-      console.error('WebSocket Error:', error);
-      this.msgService.showErrorAlert('WebSocket Error: ' + error);
-    });
   }
 
 
