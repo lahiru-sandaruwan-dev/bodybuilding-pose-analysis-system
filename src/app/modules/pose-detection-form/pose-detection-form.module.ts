@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from "primeng/inputtext";
 import { ButtonModule } from "primeng/button";
 import { PasswordModule } from "primeng/password";
@@ -32,13 +33,17 @@ import { ImageModule } from "primeng/image";
 
 import { PoseDetectionFormRoutingModule } from './pose-detection-form-routing.module';
 import { FrontDoubleBicepeFormComponent } from './front-double-bicepe-form/front-double-bicepe-form.component';
+import { PoseDetailsComponent } from './front-double-bicepe-form/pose-details/pose-details.component';
 
 
 @NgModule({
   declarations: [
-    FrontDoubleBicepeFormComponent
+    FrontDoubleBicepeFormComponent,
+    PoseDetailsComponent
   ],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
     CommonModule,
     PoseDetectionFormRoutingModule,
     ButtonModule,

@@ -1,42 +1,112 @@
-<label class="text-xl" for="frontDoubleBicep">Front Double Biceps</label>
-<div class="p-fluid grid formgrid mt-5">
-  <div class="field col-12 md:col-6">
-    <div class="card" style="position: relative; height: 400px">
-      <div style="float: right">
-        <button
-          pButton
-          type="button"
-          pRipple
-          (click)="toggleCamera()"
-          [label]="isCameraOn ? 'Close Camera' : 'Open Camera'"
-          [class]="
-            isCameraOn
-              ? 'p-button-danger p-button-raised'
-              : 'p-button-primary p-button-raised'
-          "
-        ></button>
-      </div>
-      <video #video style="width: 100%; height: 100%" autoplay></video>
+<form action="" [formGroup]="FV.formGroup">
+  <div class="flex justify-content-between">
+    <div>
+      <label class="text-xl" for="frontDoubleBicep"
+        >Pose Detection :
+        <span class="font-semibold">{{ selectedPose }}</span></label
+      >
     </div>
-  </div>
-  <div class="field col-12 md:col-6">
-    <div class="card">
-      <label for="angles" class="text-xl">{{ angles }}</label>
-      <!-- <label for="angles" class="text-3xl text-center text-green-500">{{
-        pose_status
-      }}</label> -->
-    </div>
-    <label for="angles" class="text-3xl text-center text-green-500">{{
-      pose_status
-    }}</label>
-    <div style="float: right">
+    <div>
+      <p-dropdown
+        id="poses"
+        formControlName="poses"
+        placeholder="Select Pose"
+        filter="true"
+        appendTo="body"
+        [options]="posesArr"
+        optionLabel="name"
+        [style]="{ width: '200px' }"
+        (onChange)="onChangePose()"
+      ></p-dropdown>
       <button
         pButton
         pRipple
-        type="button"
-        (click)="analyzePose('data')"
-        label="Submit"
+        id="poseDetails"
+        label="Pose Details"
+        class="ml-2 p-button-info p-button-raised"
+        (click)="showPoseDetails()"
       ></button>
     </div>
   </div>
-</div>
+  <div class="p-fluid grid formgrid mt-5">
+    <div class="field col-12 md:col-6">
+      <div class="card" style="position: relative; height: 400px">
+        <div style="float: right">
+          <button
+            pButton
+            type="button"
+            pRipple
+            (click)="toggleCamera()"
+            [label]="isCameraOn ? 'Close Camera' : 'Open Camera'"
+            [class]="
+              isCameraOn
+                ? 'p-button-danger p-button-raised'
+                : 'p-button-primary p-button-raised'
+            "
+          ></button>
+        </div>
+        <video #video style="width: 100%; height: 100%" autoplay></video>
+      </div>
+    </div>
+    <div class="field col-12 md:col-6">
+      <div class="card">
+        <!-- <label for="angles" class="text-xl">{{ angles }}</label> -->
+        <label for="angles" class="text-3xl text-center text-green-500">{{
+          pose_status
+        }}</label>
+        <!-- <label for="angles" class="text-3xl text-center text-green-500">{{
+        pose_status
+        }}</label> -->
+      </div>
+
+      <!-- <div style="float: right">
+        <button
+          pButton
+          pRipple
+          type="button"
+          (click)="analyzePose('data')"
+          label="Submit"
+        ></button>
+      </div> -->
+      <div class="card">
+        <label for="summary" class="text-xl font-semibold">Summary</label>
+        <div>
+          <div class="flex justify-content-between align-items-center">
+            <p-chart
+              type="doughnut"
+              [style.width]="'110px'"
+              [style.height]="'110px'"
+              [data]="data"
+              [options]="options"
+            />
+            <label for="Test">biceps_injury_risk</label>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-content-between align-items-center">
+            <p-chart
+              type="doughnut"
+              [style.width]="'110px'"
+              [style.height]="'110px'"
+              [data]="data"
+              [options]="options"
+            />
+            <label for="Test">biceps_injury_risk</label>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-content-between align-items-center">
+            <p-chart
+              type="doughnut"
+              [style.width]="'110px'"
+              [style.height]="'110px'"
+              [data]="data"
+              [options]="options"
+            />
+            <label for="Test">biceps_injury_risk</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
