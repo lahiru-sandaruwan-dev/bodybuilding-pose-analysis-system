@@ -34,12 +34,14 @@ import { ImageModule } from "primeng/image";
 import { PoseDetectionFormRoutingModule } from './pose-detection-form-routing.module';
 import { FrontDoubleBicepeFormComponent } from './front-double-bicepe-form/front-double-bicepe-form.component';
 import { PoseDetailsComponent } from './front-double-bicepe-form/pose-details/pose-details.component';
+import { ShowRecommendationsComponent } from './front-double-bicepe-form/show-recommendations/show-recommendations.component';
 
 
 @NgModule({
   declarations: [
     FrontDoubleBicepeFormComponent,
-    PoseDetailsComponent
+    PoseDetailsComponent,
+    ShowRecommendationsComponent
   ],
   imports: [
     ReactiveFormsModule,

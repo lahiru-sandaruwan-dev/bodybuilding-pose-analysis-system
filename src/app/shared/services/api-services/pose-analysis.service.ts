@@ -1,19 +1,29 @@
-import { Injectable } from '@angular/core';
-import { DataAccessService } from '../data-access.service';
-import { ResourceService } from '../resource.service';
+import { Injectable } from "@angular/core";
+import { DataAccessService } from "../data-access.service";
+import { ResourceService } from "../resource.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class PoseAnalysisService {
-
   constructor(
     private dataAccess: DataAccessService,
     private resource: ResourceService
-  ) { }
+  ) {}
 
   frontDoubleBicepsAnalysis(body: any) {
-    return this.dataAccess.pose_POST(this.resource.posesAnalysis.frontDoubleBicepsAnalysis, body)
-      .pipe((response) => { return response; });
+    return this.dataAccess
+      .pose_POST(this.resource.posesAnalysis.frontDoubleBicepsAnalysis, body)
+      .pipe((response) => {
+        return response;
+      });
+  }
+
+  sideChestAnalysis(body: any) {
+    return this.dataAccess
+      .pose_POST(this.resource.posesAnalysis.sideChestAnalysis, body)
+      .pipe((response) => {
+        return response;
+      });
   }
 }

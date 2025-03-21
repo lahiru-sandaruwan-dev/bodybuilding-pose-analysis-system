@@ -1,0 +1,244 @@
+a.channel {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.channel:hover {
+  text-decoration: underline;
+}
+
+.title {
+  color: var(--secondary);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.sub-title {
+  color: var(--grey);
+  font-size: 13px;
+}
+
+.icon-active {
+  filter: sepia(100%) hue-rotate(150deg) saturate(400%);
+}
+
+#playlist {
+  margin-top: 300px;
+  // top: 50%;
+  left: 50%;
+  width: 80vw;
+  /* height: 60vh; */
+  display: flex;
+  position: relative;
+  transform: translate(-50%, -50%);
+  transition: all ease 0.3s;
+}
+
+#playlist-new {
+  margin-top: 50px;
+  top: 300%;
+  left: 50%;
+  width: 80vw;
+  height: 60vh;
+  display: flex;
+  position: relative;
+  transform: translate(-50%, -50%);
+  transition: all ease 0.3s;
+}
+
+#video-dis {
+  flex: 6.5;
+  margin-right: 20px;
+  background: black;
+  height: 400px;
+}
+
+#video-dis:hover {
+  box-shadow: 0 2px 5px black;
+}
+
+#video-dis iframe {
+  width: 100%;
+  height: 100%;
+}
+
+#video-dis1 {
+  flex: 6.5;
+  margin-right: 20px;
+  background: black;
+}
+
+#video-dis1 iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.video-li {
+  flex: 3.5;
+  display: flex;
+  padding: var(--b-pad);
+  border-radius: 3px;
+  flex-direction: column;
+  background: var(--primary);
+}
+
+.video-lii {
+  flex: 3.5;
+  display: flex;
+  padding: var(--b-pad);
+  border-radius: 3px;
+  flex-direction: column;
+  background: var(--primary);
+  margin-left: 64.5%;
+}
+
+.li-collapsed {
+  overflow: hidden;
+  height: 40px;
+}
+
+#vli-info {
+  // flex: 3;
+  padding-bottom: 20px;
+  // gap: 10px;
+  // padding: 0 var(--b-pad) 0 var(--b-pad);
+}
+
+#upper-info {
+  display: flex;
+}
+
+#li-titles {
+  flex: 15;
+  border-radius: 10px;
+}
+
+#li-titles div {
+  padding-bottom: -5px;
+}
+
+#drop-icon {
+  flex: 1;
+  cursor: pointer;
+  background: url(https://user-images.githubusercontent.com/50569315/118832584-92350500-b8e2-11eb-8398-9a90a4615b98.png)
+    no-repeat center;
+  background-size: 50%;
+}
+
+#lower-info {
+  display: flex;
+  padding-top: var(--b-pad);
+}
+
+#lower-info div {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+#btn-repeat {
+  margin-right: var(--b-pad);
+  background: url(https://user-images.githubusercontent.com/50569315/118832591-93663200-b8e2-11eb-8b98-3b177304b555.png)
+    no-repeat left;
+  background-size: 50%;
+}
+
+#btn-suffle {
+  margin-right: var(--b-pad);
+  background: url(https://user-images.githubusercontent.com/50569315/118832597-93fec880-b8e2-11eb-9146-f978064eddb1.png)
+    no-repeat left;
+  background-size: 45%;
+}
+
+#btn-save {
+  margin-left: auto;
+  order: 2;
+  right: 10px;
+  margin-right: var(--b-pad);
+  background: url(https://user-images.githubusercontent.com/50569315/118832594-93fec880-b8e2-11eb-8201-12cb52be231f.png)
+    no-repeat right;
+  background-size: 60%;
+}
+
+#vli-videos {
+  flex: 7;
+  overflow: auto;
+  // padding-bottom: 10px !important;
+  /* background:#d3eaf2; */
+}
+
+.video-li {
+  /* background:red; */
+  background: white;
+  /* border-radius:7px; */
+  box-shadow: inset 0 0 1px black;
+  height: 400px;
+}
+
+.video-lii {
+  /* background:red; */
+  background: white;
+  /* border-radius:7px; */
+  box-shadow: inset 0 0 10px black;
+}
+
+// .video-li:hover {
+//     /* background: #E1D9D1; */
+//     // box-shadow: 0 1px 2px rgb(73, 73, 73);
+// }
+
+.video-lii:hover {
+  background: #e1d9d1;
+}
+
+.video-con {
+  padding-bottom: 10px !important;
+  display: flex;
+  cursor: pointer;
+  padding: var(--s-pad);
+  column-gap: var(--s-pad);
+  margin-bottom: var(--b-pad);
+}
+
+.video-con:hover,
+.active-con {
+  /* background: var(--active); */
+  background: #d3ceca;
+}
+
+.video-con:hover {
+  background: #e9e8e7;
+}
+
+.index {
+  min-width: 15px;
+  align-self: center;
+}
+
+.thumb {
+  padding: 10px;
+  width: 100px;
+  height: 60px;
+  background: var(--secondary);
+}
+
+.thumb img {
+  width: 100%;
+}
+
+.v-titles {
+  padding: 10px;
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.v-titles div:nth-child(2) {
+  margin-top: var(--s-pad);
+}
+
+.play1 {
+  margin-left: 50%;
+  width: 20px;
+}

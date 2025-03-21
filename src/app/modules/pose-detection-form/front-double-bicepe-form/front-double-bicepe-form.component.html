@@ -22,7 +22,7 @@
         pButton
         pRipple
         id="poseDetails"
-        label="Pose Details"
+        label="Pose Guide"
         class="ml-2 p-button-info p-button-raised"
         (click)="showPoseDetails()"
       ></button>
@@ -31,80 +31,210 @@
   <div class="p-fluid grid formgrid mt-5">
     <div class="field col-12 md:col-6">
       <div class="card" style="position: relative; height: 400px">
-        <div style="float: right">
-          <button
-            pButton
-            type="button"
-            pRipple
-            (click)="toggleCamera()"
-            [label]="isCameraOn ? 'Close Camera' : 'Open Camera'"
-            [class]="
-              isCameraOn
-                ? 'p-button-danger p-button-raised'
-                : 'p-button-primary p-button-raised'
-            "
-          ></button>
+        <div class="grid">
+          <div class="col-4"></div>
+          <div class="col-8">
+            <div class="flex gap-2">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-upload"
+                class="ml-2 p-button-help"
+                label="Upload"
+              ></button>
+              <button
+                pButton
+                type="button"
+                pRipple
+                (click)="toggleCamera()"
+                [label]="isCameraOn ? 'Close Camera' : 'Open Camera'"
+                [class]="
+                  isCameraOn
+                    ? 'p-button-danger p-button-raised'
+                    : 'p-button-primary p-button-raised'
+                "
+              ></button>
+            </div>
+          </div>
         </div>
+
         <video #video style="width: 100%; height: 100%" autoplay></video>
       </div>
     </div>
     <div class="field col-12 md:col-6">
       <div class="card">
         <!-- <label for="angles" class="text-xl">{{ angles }}</label> -->
-        <label for="angles" class="text-3xl text-center text-green-500">{{
+        <!-- <label for="angles" class="text-3xl text-center text-green-500">{{
           pose_status
-        }}</label>
+        }}</label> -->
+        <div class="flex justify-content-between align-items-center">
+          <label
+            for="angles"
+            class="text-3xl text-center"
+            [class]="
+              pose_status?.toLowerCase().includes('Correct')
+                ? 'text-green-600'
+                : pose_status == ''
+                ? 'text-green-600'
+                : 'text-red-500'
+            "
+          >
+            {{ pose_status }}
+          </label>
+          <label
+            for=""
+            pTooltip="Injury Risk"
+            tooltipPosition="bottom"
+            class="text-3xl text-bold"
+            [class]="
+              pose_status?.toLowerCase().includes('Correct')
+                ? 'text-green-600'
+                : pose_status == ''
+                ? 'text-green-600'
+                : 'text-red-500'
+            "
+            >{{ injury_risk_percentage }}%</label
+          >
+        </div>
+
         <!-- <label for="angles" class="text-3xl text-center text-green-500">{{
         pose_status
         }}</label> -->
       </div>
 
-      <!-- <div style="float: right">
-        <button
-          pButton
-          pRipple
-          type="button"
-          (click)="analyzePose('data')"
-          label="Submit"
-        ></button>
-      </div> -->
       <div class="card">
-        <label for="summary" class="text-xl font-semibold">Summary</label>
-        <div>
-          <div class="flex justify-content-between align-items-center">
-            <p-chart
-              type="doughnut"
-              [style.width]="'110px'"
-              [style.height]="'110px'"
-              [data]="data"
-              [options]="options"
-            />
-            <label for="Test">biceps_injury_risk</label>
+        <label for="Test" class="font-semibold text-xl">Feedbacks</label>
+        <br />
+        <ng-container *ngFor="let data of feedbacks">
+          <div>{{ data }}</div>
+        </ng-container>
+      </div>
+
+      <div class="card">
+        <div class="flex justify-content-between align-items-center">
+          <div
+            class="chart-container-wrapper justify-content-between align-items-center"
+          >
+            <div class="text-center">
+              <label for="Test" class="font-semibold text-lg"
+                >Biceps Injury Risk</label
+              >
+            </div>
+            <div class="chart-container">
+              <p-chart
+                type="doughnut"
+                [style.width]="'100%'"
+                [style.height]="'100%'"
+                [data]="data1"
+                [options]="options"
+              ></p-chart>
+              <div class="chart-hole-text">
+                {{ bicepsInjuryRiskProbability }}%
+              </div>
+            </div>
+            <div class="text-center">
+              <label
+                for="Test"
+                class="text-lg"
+                [class]="
+                  bicepeStatus.toLowerCase().includes('low')
+                    ? 'text-green-600'
+                    : 'text-red-500'
+                "
+                >{{ bicepeStatus }}</label
+              >
+            </div>
+          </div>
+          <div
+            class="chart-container-wrapper justify-content-between align-items-center"
+          >
+            <div class="text-center">
+              <label for="Test" class="font-semibold text-lg"
+                >Triceps Injury Risk</label
+              >
+            </div>
+            <div class="chart-container">
+              <p-chart
+                type="doughnut"
+                [style.width]="'100%'"
+                [style.height]="'100%'"
+                [data]="data2"
+                [options]="options"
+              ></p-chart>
+              <div class="chart-hole-text">
+                {{ tricepsInjuryRiskProbability }}%
+              </div>
+            </div>
+            <div class="text-center">
+              <label
+                for="Test"
+                class="text-lg"
+                [class]="
+                  tricepsStatus.toLowerCase().includes('low')
+                    ? 'text-green-600'
+                    : 'text-red-500'
+                "
+                >{{ tricepsStatus }}</label
+              >
+            </div>
+          </div>
+          <div
+            class="chart-container-wrapper justify-content-between align-items-center"
+          >
+            <div class="text-center">
+              <label for="Test" class="font-semibold text-lg"
+                >Shoulders Injury Risk</label
+              >
+            </div>
+            <div class="chart-container">
+              <p-chart
+                type="doughnut"
+                [style.width]="'100%'"
+                [style.height]="'100%'"
+                [data]="data3"
+                [options]="options"
+              ></p-chart>
+              <div class="chart-hole-text">
+                {{ shouldersInjuryRiskProbability }}%
+              </div>
+            </div>
+            <div class="text-center">
+              <label
+                for="Test"
+                class="text-lg"
+                [class]="
+                  shouldersStatus.toLowerCase().includes('low')
+                    ? 'text-green-600'
+                    : 'text-red-500'
+                "
+                >{{ shouldersStatus }}</label
+              >
+            </div>
           </div>
         </div>
-        <div>
-          <div class="flex justify-content-between align-items-center">
+
+        <!-- <div
+          class="flex chart-container-wrapper justify-content-between align-items-center"
+        >
+          <div class="chart-container">
             <p-chart
               type="doughnut"
-              [style.width]="'110px'"
-              [style.height]="'110px'"
-              [data]="data"
+              [style.width]="'100%'"
+              [style.height]="'100%'"
+              [data]="data1"
               [options]="options"
-            />
-            <label for="Test">biceps_injury_risk</label>
+            ></p-chart>
+            <div class="chart-hole-text">10%</div>
           </div>
-        </div>
-        <div>
-          <div class="flex justify-content-between align-items-center">
-            <p-chart
-              type="doughnut"
-              [style.width]="'110px'"
-              [style.height]="'110px'"
-              [data]="data"
-              [options]="options"
-            />
-            <label for="Test">biceps_injury_risk</label>
-          </div>
+
+          <label for="Test">biceps_injury_risk</label>
+        </div> -->
+      </div>
+
+      <div class="card">
+        <div class="flex justify-content-between">
+          <label for="" class="text-xl font-semibold">Recommendation</label>
+          <button pButton pRipple class="w-2 p-button-raised p-button-success" label="Show" (click)="onClickRecommendation()"></button>
         </div>
       </div>
     </div>

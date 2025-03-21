@@ -1,0 +1,29 @@
+:host ::ng-deep .p-chart {
+  width: 50px !important;
+  height: 10px !important;
+}
+
+// .chart-container {
+//   position: relative;
+//   //   width: 300px;
+// }
+
+.chart-container {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-hole-text {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+  color: #000;
+  /* Customize the color of the text */
+}

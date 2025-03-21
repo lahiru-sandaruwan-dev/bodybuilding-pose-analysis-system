@@ -11,6 +11,8 @@ import { MasterDataService } from "src/app/shared/services/master-data.service";
 import { FormBuilder, Validators } from "@angular/forms";
 import { SidebarService } from "src/app/shared/services/sidebar.service";
 import { PoseDetailsComponent } from "./pose-details/pose-details.component";
+import { PopupService } from "src/app/shared/services/popup.service";
+import { ShowRecommendationsComponent } from "./show-recommendations/show-recommendations.component";
 
 @Component({
   selector: "app-front-double-bicepe-form",
@@ -22,7 +24,7 @@ export class FrontDoubleBicepeFormComponent {
   @ViewChild("video") video!: ElementRef<HTMLVideoElement>;
   detector!: poseDetection.PoseDetector;
   angles: any;
-  pose_status: any;
+  pose_status: any = "";
   isCameraOn = false; // Track camera state
   videoStream: MediaStream | null = null; // Store video stream
   poseDetectionInterval: any;
@@ -34,8 +36,24 @@ export class FrontDoubleBicepeFormComponent {
     { id: 5, name: "Most Muscular" },
   ];
   selectedPose: any;
-  data: any;
+  data1: any;
+  data2: any;
+  data3: any;
   options: any;
+
+  bicepsInjuryRiskProbability: any = 0;
+  tricepsInjuryRiskProbability: any = 0;
+  shouldersInjuryRiskProbability: any = 0;
+
+  bicepeStatus: any = "";
+  tricepsStatus: any = "";
+  shouldersStatus: any = "";
+
+  injury_risk_percentage: any = 0;
+
+  feedbacks: any[] = [];
+
+  selectedPoseData: any;
 
   constructor(
     private router: Router,
@@ -45,7 +63,8 @@ export class FrontDoubleBicepeFormComponent {
     private masterDataService: MasterDataService,
     private socketService: SocketService,
     private poseAnalysisService: PoseAnalysisService,
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private popUpService: PopupService
   ) {
     this.createForm();
   }
@@ -66,35 +85,56 @@ export class FrontDoubleBicepeFormComponent {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue("--text-color");
 
-    this.data = {
-      // labels: ["A", "B", "C"],
+    this.data1 = {
       datasets: [
         {
-          data: [50, 100 - 50],
-          backgroundColor: [
-            // documentStyle.getPropertyValue("--blue-500"),
-            documentStyle.getPropertyValue("--green-500"),
-            documentStyle.getPropertyValue("--gray-200"),
-          ],
-          hoverBackgroundColor: [
-            // documentStyle.getPropertyValue("--blue-400"),
-            // documentStyle.getPropertyValue("--yellow-400"),
-            documentStyle.getPropertyValue("--green-400"),
-            documentStyle.getPropertyValue("--gray-400"),
-          ],
+          data: [this.bicepsInjuryRiskProbability, 100 - 0],
+          backgroundColor: ["#89cc97", "#E0E0E0"],
         },
       ],
     };
 
+    this.data2 = {
+      datasets: [
+        {
+          data: [this.tricepsInjuryRiskProbability, 100 - 0],
+          backgroundColor: ["#89cc97", "#E0E0E0"],
+        },
+      ],
+    };
+
+    this.data3 = {
+      datasets: [
+        {
+          data: [this.shouldersInjuryRiskProbability, 100 - 0],
+          backgroundColor: ["#89cc97", "#E0E0E0"],
+        },
+      ],
+    };
+
+    // this.options = {
+    //   cutout: "60%",
+    //   plugins: {
+    //     legend: {
+    //       labels: {
+    //         color: textColor,
+    //       },
+    //     },
+    //   },
+    // };
+
     this.options = {
-      cutout: "60%",
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor,
-          },
+      responsive: true,
+      legend: {
+        position: "right",
+      },
+      elements: {
+        arc: {
+          borderWidth: 0.5, // Adjust the border width as needed
+          borderRadius: [100, 20],
         },
       },
+      cutout: "70%", // Adjust the size of the inner circle (doughnut hole)
     };
   }
 
@@ -112,6 +152,11 @@ export class FrontDoubleBicepeFormComponent {
   }
 
   toggleCamera(): void {
+    if (this.FV.validateControllers("poses")) {
+      this.msgService.showWarnAlert("Please select a pose!");
+      return;
+    }
+
     if (this.isCameraOn) {
       this.stopVideoStream(); // Stop the camera if it's on
     } else {
@@ -245,25 +290,234 @@ export class FrontDoubleBicepeFormComponent {
 
   analyzePose(angles: any) {
     try {
+      switch (this.selectedPose) {
+        case "Front Double Biceps":
+          this.analyseFrontDoubleBicepePose(angles);
+          break;
+        case "Side Chest":
+          this.analyseSideChestPose(angles);
+          break;
+        case "Side Triceps":
+          break;
+        default:
+          break;
+      }
+    } catch (error: any) {
+      this.msgService.showErrorAlert(error.message);
+    }
+  }
+
+  analyseFrontDoubleBicepePose(angles: any) {
+    let obj = {
+      // "angles": [150, 160, 85, 85] //correct pose angels
+      angles: angles, //correct pose angels
+    };
+
+    this.poseAnalysisService
+      .frontDoubleBicepsAnalysis(obj)
+      .subscribe((response: any) => {
+        if (response.IsSuccessful) {
+          // this.msgService.showSuccessAlert(response.Message);
+          this.pose_status = "";
+          this.feedbacks = [];
+          this.injury_risk_percentage = 0;
+
+          this.bicepsInjuryRiskProbability = 0;
+          this.tricepsInjuryRiskProbability = 0;
+          this.shouldersInjuryRiskProbability = 0;
+
+          this.bicepeStatus = "";
+          this.tricepsStatus = "";
+          this.shouldersStatus = "";
+
+          let Result = response.Result;
+          this.pose_status = Result.pose_status;
+          console.log("Front Double Biceps Analysis Data", Result);
+
+          this.injury_risk_percentage = Result.injury_risk_percentage;
+          this.feedbacks = Result.feedback;
+
+          this.bicepsInjuryRiskProbability =
+            Result?.biceps_injury_risk?.probability;
+          this.tricepsInjuryRiskProbability =
+            Result?.triceps_injury_risk?.probability;
+          this.shouldersInjuryRiskProbability =
+            Result?.shoulders_injury_risk?.probability;
+
+          this.bicepeStatus = Result?.biceps_injury_risk?.status;
+          this.tricepsStatus = Result?.triceps_injury_risk?.status;
+          this.shouldersStatus = Result?.shoulders_injury_risk?.status;
+
+          let chartColor = this.bicepeStatus.toLowerCase().includes("low")
+            ? "#15d63e"
+            : "#e74c3c"; // green if "low", else red
+
+          if (this.bicepsInjuryRiskProbability == 0) {
+            this.data1 = {
+              datasets: [
+                {
+                  data: [this.bicepsInjuryRiskProbability, 100 - 0],
+                  backgroundColor: ["#89cc97", "#E0E0E0"],
+                },
+              ],
+            };
+          } else {
+            this.data1 = {
+              datasets: [
+                {
+                  data: [
+                    this.bicepsInjuryRiskProbability,
+                    100 - this.bicepsInjuryRiskProbability,
+                  ],
+                  backgroundColor: [chartColor, "#E0E0E0"],
+                },
+              ],
+            };
+          }
+
+          let chartColor1 = this.tricepsStatus.toLowerCase().includes("low")
+            ? "#15d63e"
+            : "#e74c3c"; // green if "low", else red
+
+          this.data2 = {
+            datasets: [
+              {
+                data: [
+                  this.tricepsInjuryRiskProbability,
+                  100 - this.tricepsInjuryRiskProbability,
+                ],
+                backgroundColor: [chartColor1, "#E0E0E0"],
+              },
+            ],
+          };
+
+          let chartColor2 = this.shouldersStatus.toLowerCase().includes("low")
+            ? "#15d63e"
+            : "#e74c3c"; // green if "low", else red
+
+          this.data3 = {
+            datasets: [
+              {
+                data: [
+                  this.shouldersInjuryRiskProbability,
+                  100 - this.shouldersInjuryRiskProbability,
+                ],
+                backgroundColor: [chartColor2, "#E0E0E0"],
+              },
+            ],
+          };
+        } else {
+          this.msgService.showErrorAlert(response.Message);
+        }
+      });
+  }
+
+  analyseSideChestPose(angles: any) {
+    try {
       let obj = {
         // "angles": [150, 160, 85, 85] //correct pose angels
         angles: angles, //correct pose angels
       };
 
       this.poseAnalysisService
-        .frontDoubleBicepsAnalysis(obj)
+        .sideChestAnalysis(obj)
         .subscribe((response: any) => {
           if (response.IsSuccessful) {
             // this.msgService.showSuccessAlert(response.Message);
+            this.pose_status = "";
+            this.feedbacks = [];
+            this.injury_risk_percentage = 0;
+
+            this.bicepsInjuryRiskProbability = 0;
+            this.tricepsInjuryRiskProbability = 0;
+            this.shouldersInjuryRiskProbability = 0;
+
+            this.bicepeStatus = "";
+            this.tricepsStatus = "";
+            this.shouldersStatus = "";
+
             let Result = response.Result;
             this.pose_status = Result.pose_status;
             console.log("Front Double Biceps Analysis Data", Result);
+
+            this.injury_risk_percentage = Result.injury_risk_percentage;
+            this.feedbacks = Result.feedback;
+
+            this.bicepsInjuryRiskProbability =
+              Result?.biceps_injury_risk?.probability;
+            this.tricepsInjuryRiskProbability =
+              Result?.triceps_injury_risk?.probability;
+            this.shouldersInjuryRiskProbability =
+              Result?.shoulders_injury_risk?.probability;
+
+            this.bicepeStatus = Result?.biceps_injury_risk?.status;
+            this.tricepsStatus = Result?.triceps_injury_risk?.status;
+            this.shouldersStatus = Result?.shoulders_injury_risk?.status;
+
+            let chartColor = this.bicepeStatus.toLowerCase().includes("low")
+              ? "#15d63e"
+              : "#e74c3c"; // green if "low", else red
+
+            if (this.bicepsInjuryRiskProbability == 0) {
+              this.data1 = {
+                datasets: [
+                  {
+                    data: [this.bicepsInjuryRiskProbability, 100 - 0],
+                    backgroundColor: ["#89cc97", "#E0E0E0"],
+                  },
+                ],
+              };
+            } else {
+              this.data1 = {
+                datasets: [
+                  {
+                    data: [
+                      this.bicepsInjuryRiskProbability,
+                      100 - this.bicepsInjuryRiskProbability,
+                    ],
+                    backgroundColor: [chartColor, "#E0E0E0"],
+                  },
+                ],
+              };
+            }
+
+            let chartColor1 = this.tricepsStatus.toLowerCase().includes("low")
+              ? "#15d63e"
+              : "#e74c3c"; // green if "low", else red
+
+            this.data2 = {
+              datasets: [
+                {
+                  data: [
+                    this.tricepsInjuryRiskProbability,
+                    100 - this.tricepsInjuryRiskProbability,
+                  ],
+                  backgroundColor: [chartColor1, "#E0E0E0"],
+                },
+              ],
+            };
+
+            let chartColor2 = this.shouldersStatus.toLowerCase().includes("low")
+              ? "#15d63e"
+              : "#e74c3c"; // green if "low", else red
+
+            this.data3 = {
+              datasets: [
+                {
+                  data: [
+                    this.shouldersInjuryRiskProbability,
+                    100 - this.shouldersInjuryRiskProbability,
+                  ],
+                  backgroundColor: [chartColor2, "#E0E0E0"],
+                },
+              ],
+            };
           } else {
             this.msgService.showErrorAlert(response.Message);
           }
         });
     } catch (error: any) {
-      this.msgService.showErrorAlert(error.message);
+      this.msgService.showErrorAlert(error);
     }
   }
 
@@ -272,9 +526,51 @@ export class FrontDoubleBicepeFormComponent {
   }
 
   onChangePose() {
+    this.clearValues();
     let pose = this.FV.getValue("poses");
     this.selectedPose = pose.name;
     console.log("Selected Pose", this.selectedPose);
+  }
+
+  clearValues() {
+    this.pose_status = "";
+    this.feedbacks = [];
+    this.injury_risk_percentage = 0;
+
+    this.bicepsInjuryRiskProbability = 0;
+    this.tricepsInjuryRiskProbability = 0;
+    this.shouldersInjuryRiskProbability = 0;
+
+    this.bicepeStatus = "";
+    this.tricepsStatus = "";
+    this.shouldersStatus = "";
+
+    this.data1 = {
+      datasets: [
+        {
+          data: [this.bicepsInjuryRiskProbability, 100 - 0],
+          backgroundColor: ["#89cc97", "#E0E0E0"],
+        },
+      ],
+    };
+
+    this.data2 = {
+      datasets: [
+        {
+          data: [this.tricepsInjuryRiskProbability, 100 - 0],
+          backgroundColor: ["#89cc97", "#E0E0E0"],
+        },
+      ],
+    };
+
+    this.data3 = {
+      datasets: [
+        {
+          data: [this.shouldersInjuryRiskProbability, 100 - 0],
+          backgroundColor: ["#89cc97", "#E0E0E0"],
+        },
+      ],
+    };
   }
 
   showPoseDetails() {
@@ -300,5 +596,14 @@ export class FrontDoubleBicepeFormComponent {
       console.log(error);
       this.msgService.showErrorAlert(error);
     }
+  }
+
+  onClickRecommendation() {
+    this.popUpService
+      .OpenModel(ShowRecommendationsComponent, {
+        header: "Recommendations",
+        width: "70vw",
+      })
+      .subscribe((res) => {});
   }
 }

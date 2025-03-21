@@ -1,1 +1,148 @@
-<p>pose-details works!</p>
+<p-card header="Front Double Biceps Pose Guide" class="p-4 shadow-lg">
+  <!-- <div
+    class="p-6 bg-white rounded-2xl shadow-xl border border-gray-200 max-w-4xl mx-auto"
+  >
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">
+      🏋️‍♂️ Front Double Biceps Pose – Technique & Guidelines
+    </h1>
+    <p class="text-gray-600 mb-6 text-lg">
+      The <strong>Front Double Biceps</strong> is one of the most iconic and
+      essential poses in bodybuilding competitions. It showcases the size,
+      symmetry, and definition of both arms, shoulders, lats, and the upper
+      torso.
+    </p>
+
+    <h2 class="text-2xl font-semibold text-gray-700 mb-2">
+      ✅ Step-by-Step: How to Perform It Correctly
+    </h2>
+    <ul
+      class="list-disc list-inside text-gray-600 mb-6 text-base leading-relaxed"
+    >
+      <li>
+        <strong>Feet Position:</strong> Stand shoulder-width apart for
+        stability.
+      </li>
+      <li>
+        <strong>Arms Position:</strong> Raise both arms horizontally to shoulder
+        level, then flex the biceps with elbows bent at about 90°.
+      </li>
+      <li>
+        <strong>Wrist Rotation:</strong> Slightly turn your wrists inward to
+        highlight biceps peak.
+      </li>
+      <li>
+        <strong>Chest & Lats:</strong> Keep the chest high and flare your lats
+        by slightly expanding your back.
+      </li>
+      <li>
+        <strong>Abs Engagement:</strong> Engage your core and flex your abs for
+        complete torso visibility.
+      </li>
+      <li>
+        <strong>Leg Positioning:</strong> Flex quadriceps and calves subtly to
+        add balance to the overall pose.
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-gray-700 mb-2">
+      📐 Ideal Body Angles & Symmetry Guidelines
+    </h2>
+    <ul
+      class="list-disc list-inside text-gray-600 mb-6 text-base leading-relaxed"
+    >
+      <li>
+        <strong>Elbow Angle:</strong> ~85° to 95° – elbows should not drop too
+        low or rise too high.
+      </li>
+      <li>
+        <strong>Shoulder-to-Elbow Alignment:</strong> Arms should stay
+        horizontal or slightly elevated for better symmetry.
+      </li>
+      <li>
+        <strong>Bicep Peak Visibility:</strong> Biceps should be fully flexed
+        and wrists slightly tilted inward (~15°–25°).
+      </li>
+      <li>
+        <strong>Back Flare Angle:</strong> Lats should expand ~45° outward from
+        spine for a wide, powerful look.
+      </li>
+      <li>
+        <strong>Neck & Head Position:</strong> Neutral, slightly forward-facing
+        — avoid tilting sideways.
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-gray-700 mb-2">
+      🎯 Common Mistakes to Avoid
+    </h2>
+    <ul
+      class="list-disc list-inside text-red-600 mb-6 text-base leading-relaxed"
+    >
+      <li>Elbows too high or low, breaking the symmetry.</li>
+      <li>Wrists not rotated, resulting in less biceps peak definition.</li>
+      <li>Failing to engage lats, making the pose look flat.</li>
+      <li>Poor posture and forward-leaning chest.</li>
+      <li>Uneven flexing between arms and legs.</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-gray-700 mb-2">
+      🧠 AI Pose Correction Tips
+    </h2>
+    <ul
+      class="list-disc list-inside text-green-700 mb-6 text-base leading-relaxed"
+    >
+      <li>Ensure elbow angles stay within the correct range (85–95°).</li>
+      <li>Highlight wrist rotation degree for better peak assessment.</li>
+      <li>Measure shoulder symmetry between left and right side.</li>
+      <li>Detect lat expansion ratio to identify flaring efficiency.</li>
+      <li>Provide real-time posture alignment alerts.</li>
+    </ul>
+
+    <p class="text-gray-500 italic text-sm mt-4">
+      Tip: A well-executed Front Double Biceps pose not only displays muscle
+      size but also symmetry, conditioning, and presentation skills.
+    </p>
+  </div> -->
+
+  <div class="pose-container">
+    <div
+      *ngFor="let pose of poses"
+      class="pose-card p-6 bg-white rounded-2xl shadow-lg mb-6"
+    >
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">{{ pose.name }}</h2>
+      <p class="text-gray-600 mb-6">{{ pose.description }}</p>
+
+      <h3 class="text-2xl font-semibold text-gray-700 mb-2">
+        ✅ Step-by-Step Instructions
+      </h3>
+      <ul class="list-disc list-inside text-gray-600 mb-6">
+        <li *ngFor="let step of pose.steps">{{ step }}</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-700 mb-2">
+        📐 Ideal Angles & Guidelines
+      </h3>
+      <ul class="list-disc list-inside text-gray-600 mb-6">
+        <li><strong>Elbow Angle:</strong> {{ pose.angles.elbow }}</li>
+        <li>
+          <strong>Wrist Rotation:</strong> {{ pose.angles.wristRotation }}
+        </li>
+        <li><strong>Chest/Lat Flare:</strong> {{ pose.angles.latFlare }}</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-700 mb-2">
+        🎯 Common Mistakes
+      </h3>
+      <ul class="list-disc list-inside text-red-600 mb-6">
+        <li *ngFor="let mistake of pose.commonMistakes">{{ mistake }}</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold text-gray-700 mb-2">
+        🧠 AI Pose Correction Tips
+      </h3>
+      <ul class="list-disc list-inside text-green-700 mb-6">
+        <li *ngFor="let aiTip of pose.aiTips">{{ aiTip }}</li>
+      </ul>
+    </div>
+  </div>
+</p-card>

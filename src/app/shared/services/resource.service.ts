@@ -22,6 +22,7 @@ export class ResourceService {
   };
 
   posesAnalysis = {
-    frontDoubleBicepsAnalysis: this.AnalyzePose + '/front_double_biceps'
+    frontDoubleBicepsAnalysis: this.AnalyzePose + '/front_double_biceps',
+    sideChestAnalysis: this.AnalyzePose + '/side_chest'
   }
 }

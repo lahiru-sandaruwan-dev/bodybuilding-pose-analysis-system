@@ -1,5 +1,65 @@
 <div class="text-2xl font-semibold">Dashboard</div>
-<div
+
+<div class="p-4 grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+  <!-- Pose Accuracy Card -->
+  <p-card header="Pose Accuracy" class="shadow-2xl">
+    <p-chart
+      type="doughnut"
+      [data]="poseAccuracyChartData"
+      [options]="chartOptions"
+    ></p-chart>
+  </p-card>
+
+  <!-- Injury Risk Analysis Card -->
+  <p-card header="Injury Risk Analysis" class="shadow-2xl">
+    <p-chart
+      type="bar"
+      [data]="injuryRiskChartData"
+      [options]="chartOptions"
+    ></p-chart>
+  </p-card>
+
+  <!-- Muscle Imbalance Detection -->
+  <p-card header="Muscle Imbalance" class="shadow-2xl">
+    <p-chart
+      type="radar"
+      [data]="muscleImbalanceChartData"
+      [options]="chartOptions"
+    ></p-chart>
+  </p-card>
+
+  <!-- Real-time Feedback Section -->
+  <p-card header="Live Feedback" class="shadow-2xl col-span-1 md:col-span-2">
+    <p>{{ feedbackMessage }}</p>
+  </p-card>
+
+  <!-- Session History -->
+  <p-card
+    header="Workout Session History"
+    class="shadow-2xl col-span-1 md:col-span-2 xl:col-span-3"
+  >
+    <p-table [value]="sessionHistory">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Date</th>
+          <th>Pose</th>
+          <th>Correctness</th>
+          <th>Injury Risk</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-session>
+        <tr>
+          <td>{{ session.date }}</td>
+          <td>{{ session.pose }}</td>
+          <td>{{ session.correctness }}</td>
+          <td>{{ session.injuryRisk }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>
+
+<!-- <div
   class="surface-section flex align-items-center justify-content-center w-full mb:w-full mmin-h-screen"
 >
   <video
@@ -15,7 +75,7 @@
       type="video/webm"
     />
   </video>
-</div>
+</div> -->
 
 <!-- <div class="min-h-screen flex relative lg:static surface-ground">
   <div class="min-h-screen flex flex-column relative flex-auto">
