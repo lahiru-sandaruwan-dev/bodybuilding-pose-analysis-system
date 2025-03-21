@@ -36,10 +36,12 @@ import { ImageModule } from "primeng/image";
 
 import { StepsModule } from "primeng/steps";
 import { ToastModule } from "primeng/toast";
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     SignInComponent,
+    SignupComponent,
   ],
   imports: [
     ButtonModule,

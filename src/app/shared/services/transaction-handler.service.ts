@@ -49,6 +49,14 @@ export class TransactionHandlerService {
       });
   }
 
+  userSignup(body: any) {
+    return this.dataAccess
+      ._POST(this.resource.auth.signUp, body)
+      .pipe((response) => {
+        return response;
+      });
+  }
+
   userResetPassword(userId: string) {
     return this.dataAccess
       .PUT(this.resource.auth.resetPassword + `/${userId}`, null)

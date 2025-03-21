@@ -10,6 +10,7 @@ import { AppMessageService } from "src/app/shared/services/app-message.service";
 import { ClientIpHandleService } from "src/app/shared/services/client-ip-handle.service";
 import { MasterDataService } from "src/app/shared/services/master-data.service";
 import { TransactionHandlerService } from "src/app/shared/services/transaction-handler.service";
+import { SignupComponent } from "../signup/signup.component";
 
 @Component({
   selector: "app-sign-in",
@@ -83,5 +84,14 @@ export class SignInComponent {
         this.messageService.showErrorAlert(response.Message);
       }
     });
+  }
+
+  clickOnSignUp(){
+    this.popupService
+          .OpenModel(SignupComponent, {
+            header: "Sign Up Form",
+            width: "30vw",
+          })
+          .subscribe((res) => {});
   }
 }
